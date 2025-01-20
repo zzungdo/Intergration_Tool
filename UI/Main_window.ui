@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>490</width>
+    <height>348</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>270</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Select Frunction</string>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::InputMethodHint::ImhNone</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="inputMethodHints">
+    <set>Qt::InputMethodHint::ImhHiddenText</set>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_preprocess">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>PreProcessing</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="btn_FileRename">
+      <property name="text">
+       <string>File Rename</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="btn_DataFlip">
+      <property name="toolTip">
+       <string>Dataset을 좌우반전 합니다.</string>
+      </property>
+      <property name="statusTip">
+       <string>Dataset 좌우반전</string>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Flip</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_drawing">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Drawing</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="btn_PolygonDraw">
+      <property name="text">
+       <string>Polygon</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="btn_BboxDraw">
+      <property name="text">
+       <string>Bounding Box</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Inspection</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QPushButton" name="btn_DataAnalysis">
+      <property name="text">
+       <string>Dataset Analysis</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="btn_DataCheck">
+      <property name="text">
+       <string>Dataset Check</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>490</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="Menu_help">
+    <property name="layoutDirection">
+     <enum>Qt::LayoutDirection::LeftToRight</enum>
+    </property>
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionversion"/>
+    <addaction name="actionmade_by"/>
+   </widget>
+   <addaction name="Menu_help"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionmade_by">
+   <property name="text">
+    <string>made by</string>
+   </property>
+  </action>
+  <action name="actionversion">
+   <property name="text">
+    <string>version</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
