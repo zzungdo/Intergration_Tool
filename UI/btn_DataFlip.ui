@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>701</width>
-    <height>945</height>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,15 +27,12 @@
        <property name="text">
         <string>GT Path</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QTextEdit" name="image_textEdit">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="placeholderText">
         <string>Image path</string>
@@ -45,7 +42,7 @@
      <item row="0" column="1">
       <widget class="QTextEdit" name="gt_textEdit">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="placeholderText">
         <string>GT path</string>
@@ -57,15 +54,12 @@
        <property name="text">
         <string>Output Path</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QTextEdit" name="output_textEdit">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="placeholderText">
         <string>Output Path</string>
@@ -80,15 +74,12 @@
        <property name="text">
         <string>Image Width</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="image_fileOpen">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
         <string>Open</string>
@@ -107,15 +98,12 @@
        <property name="text">
         <string>Image Path</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="gt_fileOpen">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
         <string>Open</string>
@@ -125,7 +113,7 @@
      <item row="2" column="2">
       <widget class="QPushButton" name="output_fileOpen">
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::StrongFocus</enum>
+        <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
         <string>Open</string>
@@ -138,9 +126,6 @@
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="2">
       <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
@@ -151,9 +136,6 @@
      </item>
      <item row="0" column="0">
       <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
-       </property>
        <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
@@ -165,7 +147,7 @@
      <item row="0" column="1">
       <widget class="QPushButton" name="btn_run">
        <property name="layoutDirection">
-        <enum>Qt::LayoutDirection::LeftToRight</enum>
+        <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
         <string>RUN</string>
@@ -184,13 +166,13 @@
         </font>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Shape::NoFrame</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
         <string>실행 전</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -205,9 +187,6 @@
        <property name="scaledContents">
         <bool>true</bool>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item>
@@ -221,7 +200,10 @@
         <string>person,0,98,53,316</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
        </property>
       </widget>
      </item>
@@ -258,7 +240,7 @@
         <string>실행 후</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -273,9 +255,6 @@
        <property name="scaledContents">
         <bool>true</bool>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
       </widget>
      </item>
      <item>
@@ -289,7 +268,7 @@
         <string>person,1867,98,1920,316</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

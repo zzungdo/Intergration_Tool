@@ -25,7 +25,7 @@ class Ui_Dialog_DataFlip(object):
         if not Dialog_DataFlip.objectName():
             Dialog_DataFlip.setObjectName(u"Dialog_DataFlip")
         Dialog_DataFlip.setEnabled(True)
-        Dialog_DataFlip.resize(701, 945)
+        Dialog_DataFlip.resize(701, 804)
         Dialog_DataFlip.setModal(False)
         self.gridLayout_3 = QGridLayout(Dialog_DataFlip)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
@@ -33,43 +33,40 @@ class Ui_Dialog_DataFlip(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.image_label = QLabel(Dialog_DataFlip)
         self.image_label.setObjectName(u"image_label")
-        self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.image_label, 0, 0, 1, 1)
 
         self.image_textEdit = QTextEdit(Dialog_DataFlip)
         self.image_textEdit.setObjectName(u"image_textEdit")
-        self.image_textEdit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.image_textEdit.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.image_textEdit, 1, 1, 1, 1)
 
         self.gt_textEdit = QTextEdit(Dialog_DataFlip)
         self.gt_textEdit.setObjectName(u"gt_textEdit")
-        self.gt_textEdit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.gt_textEdit.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.gt_textEdit, 0, 1, 1, 1)
 
         self.output_label = QLabel(Dialog_DataFlip)
         self.output_label.setObjectName(u"output_label")
-        self.output_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.output_label, 2, 0, 1, 1)
 
         self.output_textEdit = QTextEdit(Dialog_DataFlip)
         self.output_textEdit.setObjectName(u"output_textEdit")
-        self.output_textEdit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.output_textEdit.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.output_textEdit, 2, 1, 1, 1)
 
         self.image_width_label = QLabel(Dialog_DataFlip)
         self.image_width_label.setObjectName(u"image_width_label")
-        self.image_width_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.image_width_label, 3, 0, 1, 1)
 
         self.image_fileOpen = QPushButton(Dialog_DataFlip)
         self.image_fileOpen.setObjectName(u"image_fileOpen")
-        self.image_fileOpen.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.image_fileOpen.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.image_fileOpen, 1, 2, 1, 1)
 
@@ -80,19 +77,18 @@ class Ui_Dialog_DataFlip(object):
 
         self.gt_label = QLabel(Dialog_DataFlip)
         self.gt_label.setObjectName(u"gt_label")
-        self.gt_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.gt_label, 1, 0, 1, 1)
 
         self.gt_fileOpen = QPushButton(Dialog_DataFlip)
         self.gt_fileOpen.setObjectName(u"gt_fileOpen")
-        self.gt_fileOpen.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.gt_fileOpen.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.gt_fileOpen, 0, 2, 1, 1)
 
         self.output_fileOpen = QPushButton(Dialog_DataFlip)
         self.output_fileOpen.setObjectName(u"output_fileOpen")
-        self.output_fileOpen.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.output_fileOpen.setFocusPolicy(Qt.NoFocus)
 
         self.gridLayout.addWidget(self.output_fileOpen, 2, 2, 1, 1)
 
@@ -111,7 +107,7 @@ class Ui_Dialog_DataFlip(object):
 
         self.btn_run = QPushButton(Dialog_DataFlip)
         self.btn_run.setObjectName(u"btn_run")
-        self.btn_run.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.btn_run.setLayoutDirection(Qt.LeftToRight)
 
         self.gridLayout_2.addWidget(self.btn_run, 0, 1, 1, 1)
 
@@ -125,8 +121,8 @@ class Ui_Dialog_DataFlip(object):
         font = QFont()
         font.setPointSize(15)
         self.before_label.setFont(font)
-        self.before_label.setFrameShape(QFrame.Shape.NoFrame)
-        self.before_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.before_label.setFrameShape(QFrame.NoFrame)
+        self.before_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.before_label)
 
@@ -134,7 +130,6 @@ class Ui_Dialog_DataFlip(object):
         self.ex_label_1.setObjectName(u"ex_label_1")
         self.ex_label_1.setPixmap(QPixmap(u":/test/KR_20211209_DAY_WALK_FRONT_140_N09027_0458.jpg"))
         self.ex_label_1.setScaledContents(True)
-        self.ex_label_1.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.ex_label_1)
 
@@ -143,7 +138,8 @@ class Ui_Dialog_DataFlip(object):
         font1 = QFont()
         font1.setPointSize(12)
         self.label_2.setFont(font1)
-        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setTextInteractionFlags(Qt.NoTextInteraction)
 
         self.verticalLayout_2.addWidget(self.label_2)
 
@@ -165,7 +161,7 @@ class Ui_Dialog_DataFlip(object):
         self.after_label = QLabel(Dialog_DataFlip)
         self.after_label.setObjectName(u"after_label")
         self.after_label.setFont(font)
-        self.after_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.after_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.after_label)
 
@@ -173,14 +169,13 @@ class Ui_Dialog_DataFlip(object):
         self.ex_label_2.setObjectName(u"ex_label_2")
         self.ex_label_2.setPixmap(QPixmap(u":/test/KR_20211209_DAY_WALK_FRONT_140_N09027_0458_flip.jpg"))
         self.ex_label_2.setScaledContents(True)
-        self.ex_label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout.addWidget(self.ex_label_2)
 
         self.label_3 = QLabel(Dialog_DataFlip)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setFont(font1)
-        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_3.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.label_3)
 

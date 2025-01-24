@@ -6,26 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>760</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Bounding Box Drawing</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>90</y>
-     <width>171</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>BBox Drawing</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

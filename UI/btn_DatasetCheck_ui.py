@@ -22,7 +22,7 @@ class Ui_Dialog_DatasetCheck(object):
     def setupUi(self, Dialog_DatasetCheck):
         if not Dialog_DatasetCheck.objectName():
             Dialog_DatasetCheck.setObjectName(u"Dialog_DatasetCheck")
-        Dialog_DatasetCheck.resize(809, 705)
+        Dialog_DatasetCheck.resize(414, 109)
         self.label = QLabel(Dialog_DatasetCheck)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(120, 40, 81, 41))

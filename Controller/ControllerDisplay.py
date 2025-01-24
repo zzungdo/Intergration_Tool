@@ -17,6 +17,7 @@ from PySide6.QtGui import QImageReader, QPixmap
 import os
 import re
 from PIL import Image  # Pillow 라이브러리 사용
+from natsort import natsorted #자연스러운 정렬하기 위한 라이브러리
 
 
 class MainController:
@@ -36,6 +37,8 @@ class MainController:
         self.ui.btn_PolygonDraw.clicked.connect(self.open_btn_PloygonDraw_window)
         self.ui.btn_DataAnalysis.clicked.connect(self.open_btn_DataAnalysis_window)
         self.ui.btn_DataCheck.clicked.connect(self.open_btn_DataCheck_window)
+        #라디오 버튼 선택 상태 저장
+        self.selected_option = 'replace'  
 
     def run(self):
         # 메인 창 실행
@@ -63,8 +66,18 @@ class MainController:
         dialog = QDialog()
         ui = Ui_FileRename()
         ui.setupUi(dialog)
-        dialog.exec()
+        #버튼 클릭 이벤트 연결
+        ui.pbtn_input_path1.clicked.connect(lambda: self.browse_folder(ui.textEdit_input_path1))
+        ui.pbtn_input_path2.clicked.connect(lambda: self.browse_folder(ui.textEdit_input_path2))
+        ui.pbth_output_path.clicked.connect(lambda: self.browse_folder(ui.textEdit_output_path))
+        ui.pbtn_run.clicked.connect(lambda: self.Data_Rename(ui))
+        #라디오 버튼 클릭 이벤트 연결
+        ui.rBtn_rename.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "replace"))
+        ui.rBtn_front.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "front"))
+        ui.rBtn_rear.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "rear"))
 
+        dialog.exec()
+    
     def open_btn_BboxDraw_window(self):
         dialog = QDialog()
         ui = Ui_BboxDraw()
@@ -213,3 +226,56 @@ class MainController:
 
         except Exception as e:
             QMessageBox.critical(None, "Error", f"처리 중 오류가 발생했습니다.\n{str(e)}")
+
+
+#----------------------------Data FileRename Function----------------------------#
+
+    def on_radio_button_toggled(self, checked, option):
+        if checked:
+            self.selected_option = option  # 선택된 옵션을 클래스 속성에 저장
+            print(f"선택된 옵션: {self.selected_option}")
+
+    def Data_Rename(self,ui):
+        input_path_1 = ui.textEdit_input_path1.toPlainText().strip()
+        input_path_2 = ui.textEdit_input_path2.toPlainText().strip()
+        output_path = ui.textEdit_output_path.toPlainText().strip()
+        replace_string = ui.textEdit_string.toPlainText().strip()
+
+        if not os.path.exists(input_path_1):
+            QMessageBox.critical(None,"Error","Primary 경로는 필수로 입력해주세요.")
+            return
+        if not os.path.isdir(output_path):
+            QMessageBox.critical(None,"Error","Ouput 경로가 유효하지 않습니다.")
+            return
+        if replace_string == '':
+            QMessageBox.critical(None,"Error","변경/추가할 String을 입력하세요")
+            return
+        try:
+            if input_path_2 == '':
+                self.Replace_String(self.selected_option,replace_string,input_path_1)
+            else:
+                self.Replace_String(self.selected_option,replace_string,input_path_1,input_path_2)
+
+        except Exception as e:
+            QMessageBox.critical(None, "Error", f"처리 중 오류가 발생했습니다.\n{str(e)}")
+    
+    def Replace_String(self,radio_type,string,input_path_1,input_path_2=None):
+        if input_path_2 is None:
+            path_1 = natsorted(os.listdir(input_path_1))
+            
+        else:
+            path_1 = natsorted(os.listdir(input_path_1))
+            path_2 = natsorted(os.listdir(input_path_2))
+
+        if radio_type == 'replace':
+            print('replace')
+        elif radio_type == 'front':
+            basename,extension = os.path.splitext(path_1)
+        elif radio_type == 'rear':
+            print('replace')
+        else:
+            print('Error')
+
+
+
+
