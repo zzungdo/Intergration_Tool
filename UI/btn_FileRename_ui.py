@@ -24,87 +24,103 @@ class Ui_Dialog_FileRename(object):
     def setupUi(self, Dialog_FileRename):
         if not Dialog_FileRename.objectName():
             Dialog_FileRename.setObjectName(u"Dialog_FileRename")
-        Dialog_FileRename.resize(563, 536)
+        Dialog_FileRename.resize(707, 494)
         Dialog_FileRename.setStyleSheet(u"")
         self.verticalLayout = QVBoxLayout(Dialog_FileRename)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.rBtn_rear = QRadioButton(Dialog_FileRename)
-        self.rBtn_rear.setObjectName(u"rBtn_rear")
+        self.label_OldString = QLabel(Dialog_FileRename)
+        self.label_OldString.setObjectName(u"label_OldString")
+        self.label_OldString.setAlignment(Qt.AlignCenter)
 
-        self.gridLayout.addWidget(self.rBtn_rear, 4, 3, 1, 1)
+        self.gridLayout.addWidget(self.label_OldString, 4, 0, 1, 1)
 
         self.rBtn_front = QRadioButton(Dialog_FileRename)
         self.rBtn_front.setObjectName(u"rBtn_front")
 
-        self.gridLayout.addWidget(self.rBtn_front, 4, 2, 1, 1)
-
-        self.rBtn_rename = QRadioButton(Dialog_FileRename)
-        self.rBtn_rename.setObjectName(u"rBtn_rename")
-        self.rBtn_rename.setChecked(True)
-
-        self.gridLayout.addWidget(self.rBtn_rename, 4, 1, 1, 1)
-
-        self.textEdit_string = QTextEdit(Dialog_FileRename)
-        self.textEdit_string.setObjectName(u"textEdit_string")
-
-        self.gridLayout.addWidget(self.textEdit_string, 5, 1, 1, 3)
-
-        self.textEdit_output_path = QTextEdit(Dialog_FileRename)
-        self.textEdit_output_path.setObjectName(u"textEdit_output_path")
-
-        self.gridLayout.addWidget(self.textEdit_output_path, 3, 1, 1, 3)
-
-        self.pbth_output_path = QPushButton(Dialog_FileRename)
-        self.pbth_output_path.setObjectName(u"pbth_output_path")
-
-        self.gridLayout.addWidget(self.pbth_output_path, 3, 4, 1, 1)
-
-        self.label_option = QLabel(Dialog_FileRename)
-        self.label_option.setObjectName(u"label_option")
-
-        self.gridLayout.addWidget(self.label_option, 4, 0, 1, 1)
-
-        self.label_output_path = QLabel(Dialog_FileRename)
-        self.label_output_path.setObjectName(u"label_output_path")
-
-        self.gridLayout.addWidget(self.label_output_path, 3, 0, 1, 1)
-
-        self.pbtn_input_path2 = QPushButton(Dialog_FileRename)
-        self.pbtn_input_path2.setObjectName(u"pbtn_input_path2")
-
-        self.gridLayout.addWidget(self.pbtn_input_path2, 2, 4, 1, 1)
-
-        self.textEdit_input_path2 = QTextEdit(Dialog_FileRename)
-        self.textEdit_input_path2.setObjectName(u"textEdit_input_path2")
-
-        self.gridLayout.addWidget(self.textEdit_input_path2, 2, 1, 1, 3)
+        self.gridLayout.addWidget(self.rBtn_front, 3, 3, 1, 1)
 
         self.textEdit_input_path1 = QTextEdit(Dialog_FileRename)
         self.textEdit_input_path1.setObjectName(u"textEdit_input_path1")
 
-        self.gridLayout.addWidget(self.textEdit_input_path1, 1, 1, 1, 3)
-
-        self.label_string = QLabel(Dialog_FileRename)
-        self.label_string.setObjectName(u"label_string")
-
-        self.gridLayout.addWidget(self.label_string, 5, 0, 1, 1)
-
-        self.pbtn_input_path1 = QPushButton(Dialog_FileRename)
-        self.pbtn_input_path1.setObjectName(u"pbtn_input_path1")
-
-        self.gridLayout.addWidget(self.pbtn_input_path1, 1, 4, 1, 1)
-
-        self.label_input_path1 = QLabel(Dialog_FileRename)
-        self.label_input_path1.setObjectName(u"label_input_path1")
-
-        self.gridLayout.addWidget(self.label_input_path1, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.textEdit_input_path1, 1, 1, 1, 4)
 
         self.label_input_path2 = QLabel(Dialog_FileRename)
         self.label_input_path2.setObjectName(u"label_input_path2")
+        self.label_input_path2.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label_input_path2, 2, 0, 1, 1)
+
+        self.label_NewString = QLabel(Dialog_FileRename)
+        self.label_NewString.setObjectName(u"label_NewString")
+        self.label_NewString.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_NewString, 5, 0, 1, 1)
+
+        self.rBtn_rear = QRadioButton(Dialog_FileRename)
+        self.rBtn_rear.setObjectName(u"rBtn_rear")
+
+        self.gridLayout.addWidget(self.rBtn_rear, 3, 4, 1, 1)
+
+        self.rBtn_PartRename = QRadioButton(Dialog_FileRename)
+        self.rBtn_PartRename.setObjectName(u"rBtn_PartRename")
+
+        self.gridLayout.addWidget(self.rBtn_PartRename, 3, 2, 1, 1)
+
+        self.textEdit_input_path2 = QTextEdit(Dialog_FileRename)
+        self.textEdit_input_path2.setObjectName(u"textEdit_input_path2")
+
+        self.gridLayout.addWidget(self.textEdit_input_path2, 2, 1, 1, 4)
+
+        self.rBtn_AllRename = QRadioButton(Dialog_FileRename)
+        self.rBtn_AllRename.setObjectName(u"rBtn_AllRename")
+        self.rBtn_AllRename.setChecked(True)
+
+        self.gridLayout.addWidget(self.rBtn_AllRename, 3, 1, 1, 1)
+
+        self.pbtn_input_path1 = QPushButton(Dialog_FileRename)
+        self.pbtn_input_path1.setObjectName(u"pbtn_input_path1")
+        self.pbtn_input_path1.setMaximumSize(QSize(100, 16777215))
+
+        self.gridLayout.addWidget(self.pbtn_input_path1, 1, 5, 1, 1)
+
+        self.label_input_path1 = QLabel(Dialog_FileRename)
+        self.label_input_path1.setObjectName(u"label_input_path1")
+        self.label_input_path1.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_input_path1, 1, 0, 1, 1)
+
+        self.textEdit_NewString = QTextEdit(Dialog_FileRename)
+        self.textEdit_NewString.setObjectName(u"textEdit_NewString")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.textEdit_NewString.sizePolicy().hasHeightForWidth())
+        self.textEdit_NewString.setSizePolicy(sizePolicy)
+        self.textEdit_NewString.setMaximumSize(QSize(16777215, 50))
+
+        self.gridLayout.addWidget(self.textEdit_NewString, 5, 1, 1, 4)
+
+        self.pbtn_input_path2 = QPushButton(Dialog_FileRename)
+        self.pbtn_input_path2.setObjectName(u"pbtn_input_path2")
+        self.pbtn_input_path2.setMaximumSize(QSize(100, 16777215))
+
+        self.gridLayout.addWidget(self.pbtn_input_path2, 2, 5, 1, 1)
+
+        self.textEdit_OldString = QTextEdit(Dialog_FileRename)
+        self.textEdit_OldString.setObjectName(u"textEdit_OldString")
+        sizePolicy.setHeightForWidth(self.textEdit_OldString.sizePolicy().hasHeightForWidth())
+        self.textEdit_OldString.setSizePolicy(sizePolicy)
+        self.textEdit_OldString.setMaximumSize(QSize(16777215, 50))
+
+        self.gridLayout.addWidget(self.textEdit_OldString, 4, 1, 1, 4)
+
+        self.label_option = QLabel(Dialog_FileRename)
+        self.label_option.setObjectName(u"label_option")
+        self.label_option.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout.addWidget(self.label_option, 3, 0, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout)
@@ -117,12 +133,9 @@ class Ui_Dialog_FileRename(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.pbtn_run = QPushButton(Dialog_FileRename)
         self.pbtn_run.setObjectName(u"pbtn_run")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pbtn_run.sizePolicy().hasHeightForWidth())
         self.pbtn_run.setSizePolicy(sizePolicy)
-        self.pbtn_run.setMinimumSize(QSize(0, 50))
+        self.pbtn_run.setMinimumSize(QSize(110, 40))
         self.pbtn_run.setMaximumSize(QSize(16777215, 16777215))
         self.pbtn_run.setLayoutDirection(Qt.RightToLeft)
 
@@ -158,12 +171,13 @@ class Ui_Dialog_FileRename(object):
         self.verticalLayout.addItem(self.horizontalSpacer_4)
 
         QWidget.setTabOrder(self.textEdit_input_path1, self.pbtn_input_path1)
-        QWidget.setTabOrder(self.pbtn_input_path1, self.textEdit_output_path)
-        QWidget.setTabOrder(self.textEdit_output_path, self.pbth_output_path)
-        QWidget.setTabOrder(self.pbth_output_path, self.rBtn_rename)
-        QWidget.setTabOrder(self.rBtn_rename, self.rBtn_front)
+        QWidget.setTabOrder(self.pbtn_input_path1, self.textEdit_input_path2)
+        QWidget.setTabOrder(self.textEdit_input_path2, self.pbtn_input_path2)
+        QWidget.setTabOrder(self.pbtn_input_path2, self.rBtn_AllRename)
+        QWidget.setTabOrder(self.rBtn_AllRename, self.rBtn_front)
         QWidget.setTabOrder(self.rBtn_front, self.rBtn_rear)
-        QWidget.setTabOrder(self.rBtn_rear, self.textEdit_string)
+        QWidget.setTabOrder(self.rBtn_rear, self.textEdit_OldString)
+        QWidget.setTabOrder(self.textEdit_OldString, self.pbtn_run)
 
         self.retranslateUi(Dialog_FileRename)
 
@@ -172,17 +186,17 @@ class Ui_Dialog_FileRename(object):
 
     def retranslateUi(self, Dialog_FileRename):
         Dialog_FileRename.setWindowTitle(QCoreApplication.translate("Dialog_FileRename", u"File_Rename_Dialog", None))
-        self.rBtn_rear.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \ub4a4\uc5d0 \ucd94\uac00", None))
+        self.label_OldString.setText(QCoreApplication.translate("Dialog_FileRename", u"Old String", None))
         self.rBtn_front.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \uc55e\uc5d0 \ucd94\uac00", None))
-        self.rBtn_rename.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \ubcc0\uacbd", None))
-        self.pbth_output_path.setText(QCoreApplication.translate("Dialog_FileRename", u"Open", None))
-        self.label_option.setText(QCoreApplication.translate("Dialog_FileRename", u"Option", None))
-        self.label_output_path.setText(QCoreApplication.translate("Dialog_FileRename", u"Output Data Path", None))
-        self.pbtn_input_path2.setText(QCoreApplication.translate("Dialog_FileRename", u"Open", None))
-        self.label_string.setText(QCoreApplication.translate("Dialog_FileRename", u"Replace string", None))
+        self.label_input_path2.setText(QCoreApplication.translate("Dialog_FileRename", u"Secondary Input Path", None))
+        self.label_NewString.setText(QCoreApplication.translate("Dialog_FileRename", u"New String", None))
+        self.rBtn_rear.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \ub4a4\uc5d0 \ucd94\uac00", None))
+        self.rBtn_PartRename.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \uc77c\ubd80 \ubcc0\uacbd", None))
+        self.rBtn_AllRename.setText(QCoreApplication.translate("Dialog_FileRename", u"\ud30c\uc77c\uba85 \uc804\uccb4 \ubcc0\uacbd", None))
         self.pbtn_input_path1.setText(QCoreApplication.translate("Dialog_FileRename", u"Open", None))
         self.label_input_path1.setText(QCoreApplication.translate("Dialog_FileRename", u"Primary Input Path", None))
-        self.label_input_path2.setText(QCoreApplication.translate("Dialog_FileRename", u"Secondary Input Path", None))
+        self.pbtn_input_path2.setText(QCoreApplication.translate("Dialog_FileRename", u"Open", None))
+        self.label_option.setText(QCoreApplication.translate("Dialog_FileRename", u"Option", None))
         self.pbtn_run.setText(QCoreApplication.translate("Dialog_FileRename", u"RUN", None))
     # retranslateUi
 
