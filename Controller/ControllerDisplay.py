@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QMainWindow, QDialog, QFileDialog,QTextEdit
 from UI.Main_window_ui import Ui_MainWindow  # Main_window.py
 from UI.btn_DataFlip_ui import Ui_Dialog_DataFlip as Ui_DataFlip # Data Flip Dialog
 from UI.btn_FileRename_ui import Ui_Dialog_FileRename as Ui_FileRename # Data File Rename Dialog
-from UI.btn_BboxDraw_ui import Ui_Dialog_BboxDraw as Ui_BboxDraw # Bounding Box Drawing Dialog
+from UI.btn_ImageView_ui import Ui_MainWindow_ImageView as Ui_ViewImage # Bounding Box Drawing MainWindow
 from UI.btn_PloygonDraw_ui import Ui_Dialog_PolygonDraw as Ui_PolygonDraw # Ploygon Drawing Dialog
 from UI.btn_DataAnalysis_ui import Ui_Dialog_DataAnalysis as Ui_DataAnalysis # Ploygon Drawing Dialog
 from UI.btn_DatasetCheck_ui import Ui_Dialog_DatasetCheck as Ui_DatasetCheck # Ploygon Drawing Dialog
@@ -11,8 +11,9 @@ from UI.btn_DatasetCheck_ui import Ui_Dialog_DatasetCheck as Ui_DatasetCheck # P
 
 from UI.madeBy_ui import Ui_Dialog as Ui_madeBy  
 
-from PySide6.QtWidgets import QMainWindow, QDialog, QMessageBox
-from PySide6.QtGui import QImageReader, QPixmap
+from PySide6.QtWidgets import QMainWindow, QDialog, QMessageBox, QTableWidgetItem, QAbstractScrollArea,QHeaderView
+from PySide6.QtCore import Qt
+from PySide6.QtGui import  QPixmap
 
 import os
 import re
@@ -34,12 +35,17 @@ class MainController:
         # 버튼 클릭 이벤트 연결
         self.ui.btn_DataFlip.clicked.connect(self.open_btn_DataFlip_window)
         self.ui.btn_FileRename.clicked.connect(self.open_btn_FileRename_window)
-        self.ui.btn_BboxDraw.clicked.connect(self.open_btn_BboxDraw_window)
+        self.ui.btn_ImageView.clicked.connect(self.open_btn_ImageView_window)
         self.ui.btn_PolygonDraw.clicked.connect(self.open_btn_PloygonDraw_window)
         self.ui.btn_DataAnalysis.clicked.connect(self.open_btn_DataAnalysis_window)
         self.ui.btn_DataCheck.clicked.connect(self.open_btn_DataCheck_window)
         #라디오 버튼 선택 상태 저장
-        self.selected_option = 'AllRename'  
+        self.rename_selected_option = 'AllRename'  
+        self.ImageView_selected_option_view = 'dual'  
+        self.ImageView_selected_option_onoff = 'off'  
+
+        #bboxDraw 메인윈도우 살려두기
+        self.ImageView_window = None
 
     def run(self):
         # 메인 창 실행
@@ -102,11 +108,12 @@ class MainController:
         ui.textEdit_input_path2.dropEvent = lambda e: self.drop_event_textEdit_generic(e, ui.textEdit_input_path2)
 
         #라디오 버튼 클릭 이벤트 연결
-        ui.rBtn_AllRename.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "AllRename",ui))
-        ui.rBtn_PartRename.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "PartRename",ui))
-        ui.rBtn_front.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "front",ui))
-        ui.rBtn_rear.toggled.connect(lambda checked: self.on_radio_button_toggled(checked, "rear",ui))
+        ui.rBtn_AllRename.toggled.connect(lambda checked: self.Rename_on_radio_button_toggled(checked, "AllRename",ui))
+        ui.rBtn_PartRename.toggled.connect(lambda checked: self.Rename_on_radio_button_toggled(checked, "PartRename",ui))
+        ui.rBtn_front.toggled.connect(lambda checked: self.Rename_on_radio_button_toggled(checked, "front",ui))
+        ui.rBtn_rear.toggled.connect(lambda checked: self.Rename_on_radio_button_toggled(checked, "rear",ui))
 
+        
         #TextEdit 비활성화
         ui.textEdit_OldString.setEnabled(False)
 
@@ -114,12 +121,56 @@ class MainController:
 
         dialog.exec()
     
-    def open_btn_BboxDraw_window(self):
-        dialog = QDialog()
-        ui = Ui_BboxDraw()
-        ui.setupUi(dialog)
-        dialog.exec()
+    def open_btn_ImageView_window(self):
+        # 창 객체를 멤버 변수에 저장해서 참조 유지
+        self.ImageView_window = QMainWindow()
+        self.ui_ImageView = Ui_ViewImage()
+        self.ui_ImageView.setupUi(self.ImageView_window)
+        self.ImageView_window.show()
+        
+        # path value
+        self.first_gt_path = None
+        self.first_image_path = None
+        self.second_gt_path = None
+        self.second_image_path = None
+        self.ouput_path = None
+
+        # 이미지 이동시킬 변수
+        self.first_current_index = 0
+        self.second_current_index = 0
+        
+        # 1st Path 하위 액션 연결
+        self.ui_ImageView.action1st_GT.triggered.connect(lambda: self.open_folder("first", "GT"))
+        self.ui_ImageView.action1st_Image_2.triggered.connect(lambda: self.open_folder("first", "Image"))
+        # 2nd Path 하위 액션 연결
+        self.ui_ImageView.action2nd_GT.triggered.connect(lambda: self.open_folder("second", "GT"))
+        self.ui_ImageView.action2nd_Image_2.triggered.connect(lambda: self.open_folder("second", "Image"))
+        #output path 액션 연결
+        self.ui_ImageView.actionOutput_Path.triggered.connect(lambda: self.open_folder("output", "output"))
+
     
+        #Viewing Select Radio Btn
+        self.ui_ImageView.rBtn_1stPath.toggled.connect(lambda checked: self.view_on_radio_button_toggled(checked, "first"))
+        self.ui_ImageView.rBtn_2ndPath.toggled.connect(lambda checked: self.view_on_radio_button_toggled(checked, "second"))
+        self.ui_ImageView.rBtn_Dual.toggled.connect(lambda checked: self.view_on_radio_button_toggled(checked, "dual"))
+        #Bounding Box On/Off Radio Btn
+        self.ui_ImageView.rBtn_BboxOff.toggled.connect(lambda checked: self.box_on_radio_button_toggled(checked, "off"))
+        self.ui_ImageView.rBtn_BboxOn.toggled.connect(lambda checked: self.box_on_radio_button_toggled(checked, "on"))
+        #information CheckBox
+        # self.ui_ImageView.cBox_classname.stateChanged.connect(lambda: self.BboxDraw_on_radio_button_toggled("output", "output"))
+        # self.ui_ImageView.cBox_score.stateChanged.connect(lambda: self.BboxDraw_on_radio_button_toggled("output", "output"))
+
+        # previous, next btn
+        self.ui_ImageView.pushButton.clicked.connect(self.prev_image)
+        self.ui_ImageView.pushButton_2.clicked.connect(self.next_image)
+        self.ui_ImageView.pushButton.setShortcut("q")   # 이전 버튼에 'q' 단축키 지정
+        self.ui_ImageView.pushButton_2.setShortcut("w")   # 다음 버튼에 'w' 단축키 지정
+
+        # select table widget
+        #self.ui_ImageView.tableWidget_FileList.cellClicked.connect(self.get_selected_item)
+
+
+        
     def open_btn_PloygonDraw_window(self):
         dialog = QDialog()
         ui = Ui_PolygonDraw()
@@ -263,14 +314,11 @@ class MainController:
         except Exception as e:
             QMessageBox.critical(None, "Error", f"처리 중 오류가 발생했습니다.\n{str(e)}")
 
-
 #----------------------------Data FileRename Function----------------------------#
-    def on_radio_button_toggled(self, checked, option,ui):
+    def Rename_on_radio_button_toggled(self, checked, option,ui):
         if checked:
-            self.selected_option = option  # 선택된 옵션을 클래스 속성에 저장
-            print(f"선택된 옵션: {self.selected_option}")
-        #ui.textEdit_OldString.setEnabled(self.selected_option == "PartRename")
-        if self.selected_option == "PartRename":
+            self.rename_selected_option = option  # 선택된 옵션을 클래스 속성에 저장
+        if self.rename_selected_option == "PartRename":
             ui.textEdit_OldString.setEnabled(True)
         else:
             ui.textEdit_OldString.setEnabled(False)
@@ -291,19 +339,19 @@ class MainController:
             return
 
         try:
-            if self.selected_option == 'AllRename':
+            if self.rename_selected_option == 'AllRename':
                 if input_path_2 == '':
                     self.Rename_String(ui,replace_new_string,input_path_1)
                 else:
                     self.Rename_String(ui,replace_new_string,input_path_1,input_path_2)
 
-            elif self.selected_option == 'PartRename':
+            elif self.rename_selected_option == 'PartRename':
                 if input_path_2 == '':
                     self.Replace_String(ui,replace_old_string,replace_new_string,input_path_1)
                 else:
                     self.Replace_String(ui,replace_old_string,replace_new_string,input_path_1,input_path_2)
 
-            elif self.selected_option == 'front' or self.selected_option == 'rear':
+            elif self.rename_selected_option == 'front' or self.rename_selected_option == 'rear':
                 if input_path_2 == '':
                     self.Insert_String(ui,replace_new_string,input_path_1)
                 else:
@@ -355,7 +403,6 @@ class MainController:
         except Exception as e:
             QMessageBox.critical(None, "Error", f"파일명 변경 중 오류가 발생했습니다.\n{str(e)}")
             
-        
     def Replace_String(self,ui,old_string,new_string,input_path_1,input_path_2=None):
         mode_type = False
         path_1_list = natsorted(os.listdir(input_path_1))
@@ -397,7 +444,6 @@ class MainController:
                 QMessageBox.information(None, "Success", f"-----Replace-----\nPrimary : {str(idx)}개\n")
         except Exception as e:
             QMessageBox.critical(None, "Error", f"파일명 치환 중 오류가 발생했습니다.\n{str(e)}")
-
     
     def Insert_String(self,ui,new_string,input_path_1,input_path_2=None):
         mode_type = False
@@ -415,7 +461,7 @@ class MainController:
             # 이미 처리한 작업 카운트
             current_step = 0
             #앞에 추가
-            if self.selected_option == 'front':
+            if self.rename_selected_option == 'front':
                 for idx_1, filename_1 in enumerate(path_1_list,start=1):
                     basename_1, ext_1 = os.path.splitext(filename_1)
                     new_filename_1 = f"{new_string}{basename_1}{ext_1}"
@@ -439,7 +485,7 @@ class MainController:
                 else:
                     QMessageBox.information(None, "Success", f"----- prepend-----\nPrimary : {str(idx_1)}개\n")
             #뒤에 추가
-            if self.selected_option == 'rear':
+            if self.rename_selected_option == 'rear':
                 for idx_1, filename_1 in enumerate(path_1_list,start=1):
                     basename_1, ext_1 = os.path.splitext(filename_1)
                     new_filename_1 = f"{basename_1}{new_string}{ext_1}"
@@ -465,5 +511,202 @@ class MainController:
         except Exception as e:
             QMessageBox.critical(None, "Error", f"파일명 추가 중 오류가 발생했습니다.\n{str(e)}")
 
+#----------------------------Image View Function----------------------------#
+    def view_on_radio_button_toggled(self, checked, option):
+        if checked:
+            self.ImageView_selected_option_view = option  
+    
+    def box_on_radio_button_toggled(self, checked, option):
+        if checked:
+            self.ImageView_selected_option_onoff = option  
+
+    def open_folder(self, path_type: str, folder_type: str):
+        title = f"Select {path_type.capitalize()} Path {folder_type} Folder"
+        # self 대신 부모 위젯인 self.main_window 전달
+        folder = QFileDialog.getExistingDirectory(self.ImageView_window, title, "")
+        if folder:
+            if path_type == "first": # path 1 선택 했을 경우
+                if folder_type == "GT": # path 1 의 GT를 선택했을 경우
+                    self.first_gt_path = None 
+                    self.first_gt_path = folder
+                    if self.first_image_path is None: # path 1 의 GT를 선택했는데 Image가 없을 경우
+                        self.open_folder("first", "Image")
+                else: # path 1의 Image를 선택했을 경우
+                    self.first_image_path = None
+                    self.first_image_path = folder
+                    self.first_image_list = self.load_image(folder)
+                self.populate_file_table(path_type)
+                self.display_image(path_type)
+
+            elif path_type == "second": # path 2 선택 했을 경우
+                if folder_type == "GT": # path 2 의 GT를 선택했을 경우
+                    self.second_gt_path = None
+                    self.second_gt_path = folder
+                    if self.second_image_path is None: # path 2 의 GT를 선택했는데 Image가 없을 경우
+                        self.open_folder("second", "Image")
+                else:  # path 2의 Image를 선택했을 경우
+                    self.second_image_path = None
+                    self.second_image_path = folder
+                    self.second_image_list = self.load_image(folder)
+                self.populate_file_table(path_type)
+                self.display_image(path_type)
+            else: # ouput path를 선택했을 경우
+                self.ouput_path = folder
+
+    def load_image(self, folder):
+        valid_extensions = ('.png','.jpg')
+        image_files = [f for f in natsorted(os.listdir(folder)) if f.lower().endswith(valid_extensions)]
+        return image_files
+
+    def display_image(self, path_type):
+        if path_type == 'first':
+            if not self.first_image_list:
+                self.ui_ImageView.label_ImageView_1.setText('No images')
+                return
+            image_path = os.path.join(self.first_image_path,self.first_image_list[self.first_current_index])
+            pixmap = QPixmap(image_path)
+            if pixmap.isNull():
+                self.ui_ImageView.label_ImageView_1.setText("Error Loading Image")
+            else:
+                self.ui_ImageView.label_ImageView_1.setPixmap(pixmap)
+                self.ui_ImageView.label_ImageView_1.setScaledContents(True)
+        elif path_type == 'second':
+            if not self.second_image_list:
+                self.ui_ImageView.label_ImageView_2.setText('No images')
+                return
+            image_path = os.path.join(self.second_image_path, self.second_image_list[self.second_current_index])
+
+            pixmap = QPixmap(image_path)
+            if pixmap.isNull():
+                self.ui_ImageView.label_ImageView_2.setText("Error Loading Image")
+            else:
+                self.ui_ImageView.label_ImageView_2.setPixmap(pixmap)
+                self.ui_ImageView.label_ImageView_2.setScaledContents(True)
+        else:
+            if not self.first_image_list:
+                self.ui_ImageView.label_ImageView_1.setText('No images')
+            if not self.second_image_list:
+                self.ui_ImageView.label_ImageView_2.setText('No images')
+                return
+            image_path_1 = os.path.join(self.first_image_path, self.first_image_list[self.first_current_index])
+            image_path_2 = os.path.join(self.second_image_path, self.first_image_list[self.first_current_index])
+            #image_path_2 = os.path.join(self.second_image_path, self.second_image_list[self.second_current_index])
+
+            pixmap_1 = QPixmap(image_path_1)
+            pixmap_2 = QPixmap(image_path_2)
+            if pixmap_1.isNull():
+                self.ui_ImageView.label_ImageView_1.setText("Error path 1 Loading Image")
+            if  pixmap_2.isNull():
+                self.ui_ImageView.label_ImageView_1.setPixmap(pixmap_1)
+                self.ui_ImageView.label_ImageView_1.setScaledContents(True)
+                self.ui_ImageView.label_ImageView_2.setText("Not path 2 Loading Image")
+            else:
+                self.ui_ImageView.label_ImageView_1.setPixmap(pixmap_1)
+                self.ui_ImageView.label_ImageView_1.setScaledContents(True)
+
+                self.ui_ImageView.label_ImageView_2.setPixmap(pixmap_2)
+                self.ui_ImageView.label_ImageView_2.setScaledContents(True)
+
+    def next_image(self):
+        if self.ImageView_selected_option_view == 'dual':
+            if self.first_image_list and self.first_current_index < len(self.first_image_list) -1:# and self.second_image_list and self.second_current_index < len(self.second_image_list) -1:
+                self.first_current_index += 1
+                self.second_current_index = self.first_current_index
+                self.display_image('dual')
+
+        elif self.ImageView_selected_option_view == 'first':
+            if self.first_image_list and self.first_current_index < len(self.first_image_list) -1:
+                self.first_current_index += 1
+                self.display_image('first')
+
+        elif self.ImageView_selected_option_view == 'second':
+            if self.second_image_list and self.second_current_index < len(self.second_image_list) -1:
+                self.second_current_index += 1
+                
+                self.display_image('second')
+
+    def prev_image(self):
+        if self.ImageView_selected_option_view == 'dual':
+            if self.first_current_index > 0 and self.second_current_index > 0 :
+                self.first_current_index -= 1
+                self.second_current_index = self.first_current_index
+                self.display_image('dual')
+
+        elif self.ImageView_selected_option_view == 'first':
+            if self.first_current_index > 0 :
+                self.first_current_index -= 1
+                self.display_image('first')
+
+        elif self.ImageView_selected_option_view == 'second':
+            if self.second_current_index > 0 :
+                if self.second_current_index > len(self.second_image_list):
+                    self.second_current_index = len(self.second_image_list)
+                self.second_current_index -= 1
+
+                self.display_image('second')
+    
+    def get_selected_item(self, row, column):
+        item = self.ui_ImageView.tableWidget_FileList.item(row, column)
+        if item:  # 선택된 항목이 있는지 확인
+            selected_value = item.text()
+            print(f"선택된 값: {selected_value}")
+        
 
 
+    def populate_file_table(self,type):
+        if type == 'first':
+            table_widget = self.ui_ImageView.tableWidget_Path1_FileList
+            files = self.first_image_list
+            header_label = "Path 1 File Name"
+        elif type == 'second':
+            table_widget = self.ui_ImageView.tableWidget_Path2_FileList
+            files = self.second_image_list
+            header_label = "Path 2 File Name"
+        else:
+            print("잘못된 type 값. ('first' 또는 'second' 사용)")
+            return
+
+        table_widget.clear()
+        table_widget.setRowCount(0)
+        table_widget.setColumnCount(1)
+        table_widget.setHorizontalHeaderLabels([header_label])
+
+
+        table_widget.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+
+        for row, filename in enumerate(files):
+            table_widget.insertRow(row)
+            item = QTableWidgetItem(filename)
+            table_widget.setItem(row, 0, item)
+
+        '''if type == 'first':
+            self.ui_ImageView.tableWidget_Path1_FileList.clear()
+            self.ui_ImageView.tableWidget_Path1_FileList.setRowCount(0)
+            self.ui_ImageView.tableWidget_Path1_FileList.setColumnCount(1)
+            self.ui_ImageView.tableWidget_Path1_FileList.setHorizontalHeaderLabels(["Path 1 File Name"])
+
+            self.ui_ImageView.tableWidget_Path1_FileList.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+            row = 0
+            files = self.first_image_list
+            for filename in files:
+                self.ui_ImageView.tableWidget_Path1_FileList.insertRow(row)
+                item = QTableWidgetItem(filename)
+                self.ui_ImageView.tableWidget_Path1_FileList.setItem(row, 0, item)
+                row += 1
+        elif type == 'second':
+            self.ui_ImageView.tableWidget_Path2_FileList.clear()
+            self.ui_ImageView.tableWidget_Path2_FileList.setRowCount(0)
+            self.ui_ImageView.tableWidget_Path2_FileList.setColumnCount(1)
+            self.ui_ImageView.tableWidget_Path2_FileList.setHorizontalHeaderLabels(["path 2 File Name"])
+    
+            self.ui_ImageView.tableWidget_Path2_FileList.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+    
+            row = 0
+            files = self.second_image_list
+            for filename in files:
+                self.ui_ImageView.tableWidget_Path2_FileList.insertRow(row)
+                item = QTableWidgetItem(filename)
+                self.ui_ImageView.tableWidget_Path2_FileList.setItem(row, 0, item)
+                row += 1'''

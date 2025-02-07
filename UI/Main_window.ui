@@ -20,11 +20,11 @@
    <string>Select Frunction</string>
   </property>
   <property name="inputMethodHints">
-   <set>Qt::InputMethodHint::ImhNone</set>
+   <set>Qt::ImhNone</set>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="inputMethodHints">
-    <set>Qt::InputMethodHint::ImhHiddenText</set>
+    <set>Qt::ImhNone</set>
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0">
@@ -39,7 +39,7 @@
        <string>PreProcessing</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -78,7 +78,7 @@
        <string>Drawing</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -90,9 +90,9 @@
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="QPushButton" name="btn_BboxDraw">
+     <widget class="QPushButton" name="btn_ImageView">
       <property name="text">
-       <string>Bounding Box</string>
+       <string>Image View</string>
       </property>
      </widget>
     </item>
@@ -102,7 +102,7 @@
        <string>Inspection</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -133,7 +133,7 @@
    </property>
    <widget class="QMenu" name="Menu_help">
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="title">
      <string>Help</string>

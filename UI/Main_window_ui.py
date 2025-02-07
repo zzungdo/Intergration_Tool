@@ -26,20 +26,20 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(490, 348)
         MainWindow.setMinimumSize(QSize(270, 0))
-        MainWindow.setInputMethodHints(Qt.InputMethodHint.ImhNone)
+        MainWindow.setInputMethodHints(Qt.ImhNone)
         self.actionmade_by = QAction(MainWindow)
         self.actionmade_by.setObjectName(u"actionmade_by")
         self.actionversion = QAction(MainWindow)
         self.actionversion.setObjectName(u"actionversion")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setInputMethodHints(Qt.InputMethodHint.ImhHiddenText)
+        self.centralwidget.setInputMethodHints(Qt.ImhNone)
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.label_preprocess = QLabel(self.centralwidget)
         self.label_preprocess.setObjectName(u"label_preprocess")
         self.label_preprocess.setMaximumSize(QSize(16777215, 20))
-        self.label_preprocess.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_preprocess.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label_preprocess, 1, 0, 1, 1)
 
@@ -56,7 +56,7 @@ class Ui_MainWindow(object):
         self.label_drawing = QLabel(self.centralwidget)
         self.label_drawing.setObjectName(u"label_drawing")
         self.label_drawing.setMaximumSize(QSize(16777215, 20))
-        self.label_drawing.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_drawing.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label_drawing, 1, 2, 1, 1)
 
@@ -65,14 +65,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.btn_PolygonDraw, 3, 2, 1, 1)
 
-        self.btn_BboxDraw = QPushButton(self.centralwidget)
-        self.btn_BboxDraw.setObjectName(u"btn_BboxDraw")
+        self.btn_ImageView = QPushButton(self.centralwidget)
+        self.btn_ImageView.setObjectName(u"btn_ImageView")
 
-        self.gridLayout.addWidget(self.btn_BboxDraw, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.btn_ImageView, 2, 2, 1, 1)
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setAlignment(Qt.AlignCenter)
 
         self.gridLayout.addWidget(self.label, 1, 3, 1, 1)
 
@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 490, 22))
         self.Menu_help = QMenu(self.menubar)
         self.Menu_help.setObjectName(u"Menu_help")
-        self.Menu_help.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.Menu_help.setLayoutDirection(Qt.LeftToRight)
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
         self.btn_DataFlip.setText(QCoreApplication.translate("MainWindow", u"Flip", None))
         self.label_drawing.setText(QCoreApplication.translate("MainWindow", u"Drawing", None))
         self.btn_PolygonDraw.setText(QCoreApplication.translate("MainWindow", u"Polygon", None))
-        self.btn_BboxDraw.setText(QCoreApplication.translate("MainWindow", u"Bounding Box", None))
+        self.btn_ImageView.setText(QCoreApplication.translate("MainWindow", u"Image View", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Inspection", None))
         self.btn_DataAnalysis.setText(QCoreApplication.translate("MainWindow", u"Dataset Analysis", None))
         self.btn_DataCheck.setText(QCoreApplication.translate("MainWindow", u"Dataset Check", None))
